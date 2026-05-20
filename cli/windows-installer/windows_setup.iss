@@ -2,7 +2,9 @@
 ; Mirrors patterns from viam_vnc/windows_setup.iss.
 
 #define MyAppName "Viam CLI"
-#define MyAppVersion "0.0.1"
+#ifndef MyAppVersion
+  #define MyAppVersion "0.0.1"
+#endif
 #define MyAppPublisher "Viam, Inc."
 #define MyAppURL "https://viam.com"
 #define MyAppExeName "viam.exe"

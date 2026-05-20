@@ -80,6 +80,7 @@ jobs:
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.7
         with:
           path: cli/windows-installer/windows_setup.iss
+          options: /DMyAppVersion=${{ github.ref_name }}
 
       - name: Sign installer
         run: java -jar jsign.jar
