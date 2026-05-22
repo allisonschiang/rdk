@@ -85,7 +85,7 @@ jobs:
 
   cli:
     needs: test
-    uses: viamrobotics/rdk/.github/workflows/cli.yml@main
+    uses: viamrobotics/rdk/.github/workflows/cli.yml@RSDK-13490   # DRY-RUN: revert to @main before merge
     with:
       release_type: 'pr'
     secrets:
@@ -93,14 +93,14 @@ jobs:
 
   cli-windows-installer:
     needs: cli
-    uses: viamrobotics/rdk/.github/workflows/cli-windows-installer.yml@main
+    uses: viamrobotics/rdk/.github/workflows/cli-windows-installer.yml@RSDK-13490   # DRY-RUN: revert to @main before merge
     with:
       release_type: 'pr'
     secrets:
       GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
   slack-workflow-status:
-    if: ${{ !success() }}
+    if: false  # DRY-RUN: disabled to avoid spamming #team-devops during installer testing; revert before merge
     name: Post Workflow Status To Slack
     needs:
       - test
