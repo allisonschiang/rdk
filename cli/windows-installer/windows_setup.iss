@@ -1,10 +1,7 @@
 ; Inno Setup script for the Viam CLI Windows installer.
-; Mirrors patterns from viam_vnc/windows_setup.iss.
 
 #define MyAppName "Viam CLI"
-#ifndef MyAppVersion
-  #define MyAppVersion "0.0.1"
-#endif
+#define MyAppVersion "0.1.0"
 #define MyAppPublisher "Viam, Inc."
 #define MyAppURL "https://viam.com"
 #define MyAppExeName "viam.exe"
@@ -25,7 +22,7 @@ DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=commandline
 OutputDir=releases
-OutputBaseFilename=viam-cli-windows-installer
+OutputBaseFilename=viamcli-windows-x64
 SolidCompression=yes
 WizardStyle=modern
 ChangesEnvironment=yes
