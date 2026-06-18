@@ -28,6 +28,7 @@ const (
 )
 
 var errLocalTarballEntrypoint = errors.New("local tarballs must contain a meta.json with the 'entrypoint' field")
+var errNoMetaJSONForLocalNonTarball = errors.New("local non-tarball: did not search for meta.json")
 
 // Module represents an external resource module, with a path to the binary module file.
 type Module struct {
@@ -303,6 +304,10 @@ func (m *Module) FirstRun(
 			"cwd", cwd,
 			"envViamModuleRoot", os.Getenv("VIAM_MODULE_ROOT"))
 		return nil
+	case errors.Is(err, errNoMetaJSONForLocalNonTarball):
+		// we intentionally don't read meta.json for local binaries, so any first run script is skipped by design.
+		logger.Debug("local binary module, skipping first run")
+		return nil
 	case err != nil:
 		//nolint: errcheck
 		cwd, _ := os.Getwd()
@@ -486,7 +491,7 @@ func (m Module) getJSONManifest(unpackedModDir string, env map[string]string) (*
 		return nil, "", fmt.Errorf("local tarball: failed to find meta.json: %w", registryTarballErr)
 	}
 
-	return nil, "", errors.New("local non-tarball: did not search for meta.json")
+	return nil, "", errNoMetaJSONForLocalNonTarball
 }
 
 func findMetaJSONFile(dir string) (*JSONManifest, error) {
